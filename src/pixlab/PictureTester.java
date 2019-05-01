@@ -19,7 +19,7 @@ public class PictureTester
     beach.explore();
   }
   
-  public static void keepOnlyBlue()
+  public static void testKeepOnlyBlue()
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
