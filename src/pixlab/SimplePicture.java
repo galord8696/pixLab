@@ -70,7 +70,7 @@ public class SimplePicture implements DigitalPicture
  {
    
    // load the picture into the buffered image 
-   load(fileName);
+   load("src/images/" + fileName);
    
  }
  
