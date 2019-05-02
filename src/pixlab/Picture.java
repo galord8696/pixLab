@@ -98,19 +98,7 @@ public class Picture extends SimplePicture {
      * Method that mirrors the picture around a vertical mirror in the center of
      * the picture from left to right
      */
-    public void mirrorVertical() {
-        Pixel[][] pixels = this.getPixels2D();
-        Pixel leftPixel = null;
-        Pixel rightPixel = null;
-        int width = pixels[0].length;
-        for (int row = 0; row < pixels.length; row++) {
-            for (int col = 0; col < width / 2; col++) {
-                leftPixel = pixels[row][col];
-                rightPixel = pixels[row][width - 1 - col];
-                rightPixel.setColor(leftPixel.getColor());
-            }
-        }
-    }
+    
 
     /**
      * Mirror just part of a picture of a temple
@@ -126,12 +114,14 @@ public class Picture extends SimplePicture {
         for (int row = 27; row < 97; row++) {
             // loop from 13 to just before the mirror point
             for (int col = 13; col < mirrorPoint; col++) {
-
+                count++;
                 leftPixel = pixels[row][col];
                 rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
                 rightPixel.setColor(leftPixel.getColor());
             }
         }
+        
+        System.out.println(count);
     }
 
     /**
@@ -216,14 +206,114 @@ public class Picture extends SimplePicture {
             }
         }
     }
+    
+    public void negate() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+                pixelObj.setRed(255 - pixelObj.getRed());
+                pixelObj.setGreen(255 - pixelObj.getGreen());
+                pixelObj.setBlue(255 - pixelObj.getBlue());
+            }
+        }
+    }
+    
+    public void fixUnderwater() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+//                pixelObj.setRed(pixelObj.getRed());
+//                pixelObj.setGreen(255 - pixelObj.getGreen());
+                if (pixelObj.getBlue() > 170){
+                    pixelObj.setRed(pixelObj.getRed()/2);
+                    pixelObj.setGreen(pixelObj.getGreen()/2);
+                }
+//                pixelObj.setBlue(pixelObj.getBlue()+50);
+            }
+        }
+    }
+    
+    public void grayscale() {
+        Pixel[][] pixels = this.getPixels2D();
+        int avg;
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+                avg = pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue();
+                avg = avg/3;
+                pixelObj.setRed(avg);
+                pixelObj.setGreen(avg);
+                pixelObj.setBlue(avg);
+            }
+        }
+    }
+    
+    public void mirrorVertical() {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int width = pixels[0].length;
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < width / 2; col++) {
+                leftPixel = pixels[row][col];
+                rightPixel = pixels[row][width - 1 - col];
+                rightPixel.setColor(leftPixel.getColor());
+            }
+        }
+    }
+    
+    public void mirrorHorizontal() {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel upPixel = null;
+        Pixel downPixel = null;
+        int downloc;
+        int width = pixels[0].length;
+        for (int col = 0; col < pixels[0].length; col++) {
+            for (int row = 0; row < (pixels.length) / 2; row++) {
+                upPixel = pixels[row][col];
+                downloc = (pixels.length - row - 1);
+                downPixel = pixels[downloc][col];
+                downPixel.setColor(upPixel.getColor());
+            }
+        }
+    }
+    
+    public void mirrorHorizontalBotToTop() {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel upPixel = null;
+        Pixel downPixel = null;
+        int downloc;
+        int width = pixels[0].length;
+        for (int col = 0; col < pixels[0].length; col++) {
+            for (int row = 0; row < (pixels.length) / 2; row++) {
+                upPixel = pixels[row][col];
+                downloc = (pixels.length - row - 1);
+                downPixel = pixels[downloc][col];
+                upPixel.setColor(downPixel.getColor());
+            }
+        }
+    }
+    
+    public void mirrorVerticalRightToLeft() {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int width = pixels[0].length;
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < width / 2; col++) {
+                leftPixel = pixels[row][col];
+                rightPixel = pixels[row][width - 1 - col];
+                leftPixel.setColor(rightPixel.getColor());
+            }
+        }
+    }
 
     /* Main method for testing - each class in Java can have a main 
      * method 
      */
     public static void main(String[] args) {
-        Picture beach = new Picture("beach.jpg");
+        Picture beach = new Picture("water.jpg");
         beach.explore();
-        beach.zeroBlue();
+        beach.mirrorTemple();
         beach.explore();
     }
 
