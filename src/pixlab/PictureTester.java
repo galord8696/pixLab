@@ -68,6 +68,14 @@ public class PictureTester
     caterpillar.explore();
   }
   
+  public static void testMirrorArms()
+  {
+    Picture caterpillar = new Picture("snowman.jpg");
+    caterpillar.explore();
+    caterpillar.mirrorArms();
+    caterpillar.explore();
+  }
+  
   public static void testMirrorHorizontalBotToTop()
   {
     Picture caterpillar = new Picture("caterpillar.jpg");
@@ -93,6 +101,32 @@ public class PictureTester
     temple.explore();
   }
   
+  public static void testMirrorGull()
+  {
+    Picture temple = new Picture("seagull.jpg");
+    temple.explore();
+    temple.mirrorGull();
+    temple.explore();
+  }
+  
+  public static void testCopy()
+  {
+    Picture temple = new Picture("seagull.jpg");
+    temple.mirrorGull();
+    Picture temp = new Picture("temple.jpg");
+    temp.fixUnderwater();
+    Picture koal = new Picture("koala.jpg");
+    koal.mirrorHorizontal();
+    Picture moon = new Picture("moon-surface.jpg");
+    moon.mirrorVerticalRightToLeft();
+    temple.mirrorHorizontal();
+    temple.explore();
+    temple.copy3(temp, 50, 50, 80, 80, 150, 150);
+    temple.copy3(moon, 300, 300, 0, 50, 200, 200);
+    temple.copy3(koal, 150, 50, 60, 70, 120, 130);
+    temple.explore();
+  }
+  
   /** Method to test the collage method */
   public static void testCollage()
   {
@@ -105,7 +139,7 @@ public class PictureTester
   public static void testEdgeDetection()
   {
     Picture swan = new Picture("swan.jpg");
-    swan.edgeDetection(10);
+    swan.edgeDetection(130);
     swan.explore();
   }
   
@@ -126,14 +160,14 @@ public class PictureTester
 //    testMirrorVertical();
 //    testMirrorVerticalRightToLeft();
 //    testMirrorHorizontal();
-      testMirrorHorizontalBotToTop();
+//      testMirrorHorizontalBotToTop();
     //testMirrorTemple();
-    //testMirrorArms();
-    //testMirrorGull();
+//    testMirrorArms();
+//    testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
-    //testCopy();
-    //testEdgeDetection();
+//    testCopy();
+    testEdgeDetection();
     //testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
