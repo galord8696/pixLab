@@ -301,6 +301,82 @@ public class Picture extends SimplePicture {
             }
         }
     }
+    
+    public void edgeDetectionSelf(int edgeDist) {
+        Pixel leftPixel = null;
+        Pixel midPixel = null;
+        Pixel rightPixel = null;
+        Pixel topPixel = null;
+        Pixel botPixel = null;
+        Pixel[][] pixels = this.getPixels2D();
+        int rightColor;
+        int botColor;
+        int midColor;
+        int topColor;
+        int leftColor;
+        
+        for (int row = 1; row < pixels.length-1; row++) {
+            for (int col = 1;
+                    col < pixels[0].length - 1; col++) {
+                midPixel = pixels[row][col];
+                
+                leftPixel = pixels[row][col-1];
+                rightPixel = pixels[row][col + 1];
+                
+                rightColor = rightPixel.getRed()+rightPixel.getGreen()+rightPixel.getBlue();
+                rightColor = rightColor/3;
+                
+                topPixel = pixels[row+1][col];
+                botPixel = pixels[row-1][col];
+                
+                botColor = botPixel.getRed()+botPixel.getGreen()+botPixel.getBlue();
+                botColor = botColor/3;
+                
+                topColor = topPixel.getRed()+topPixel.getGreen()+topPixel.getBlue();
+                topColor = topColor/3;
+                
+                leftColor = leftPixel.getRed()+leftPixel.getGreen()+leftPixel.getBlue();
+                leftColor = leftColor/3;
+                
+                midColor = midPixel.getRed()+midPixel.getGreen()+midPixel.getBlue();
+                midColor = midColor/3;
+                
+                
+                
+                if (midColor-rightColor > edgeDist) {
+                    midPixel.setColor(Color.BLACK);
+                }
+                else if (rightColor-midColor > edgeDist) {
+                    rightPixel.setColor(Color.BLACK);
+                    midPixel.setColor(Color.WHITE);
+                }
+                else if (midColor-botColor > edgeDist) {
+                    midPixel.setColor(Color.BLACK);
+                }
+                else if (botColor-midColor > edgeDist) {
+                    botPixel.setColor(Color.BLACK);
+                    midPixel.setColor(Color.WHITE);
+                }
+                else if (midColor-topColor > edgeDist) {
+                    midPixel.setColor(Color.BLACK);
+                }
+                else if (topColor-midColor > edgeDist) {
+                    topPixel.setColor(Color.BLACK);
+                    midPixel.setColor(Color.WHITE);
+                }
+                else if (midColor-leftColor > edgeDist) {
+                    midPixel.setColor(Color.BLACK);
+                }
+                else if (leftColor-midColor > edgeDist) {
+                    leftPixel.setColor(Color.BLACK);
+                    midPixel.setColor(Color.WHITE);
+                }
+                else{
+                    midPixel.setColor(Color.WHITE);
+                }
+            }
+        }
+    }
         
         
     public void keepOnlyBlue() {
