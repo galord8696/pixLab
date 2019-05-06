@@ -225,49 +225,10 @@ public class Picture extends SimplePicture {
         this.mirrorVertical();
         this.write("collage.jpg");
     }
-
-    /**
-     * Method to show large changes in color
-     *
-     * @param edgeDist the distance for finding edges
-     */
-    public void edgeDetection2(int edgeDist) {
-        Pixel leftPixel = null;
-        Pixel rightPixel = null;
-        Pixel topPixel = null;
-        Pixel botPixel = null;
-        Pixel[][] pixels = this.getPixels2D();
-        Color rightColor = null;
-        Color botColor = null;
-        for (int row = 0; row < pixels.length-1; row++) {
-            for (int col = 0;
-                    col < pixels[0].length - 1; col++) {
-                leftPixel = pixels[row][col];
-                rightPixel = pixels[row][col + 1];
-                rightColor = rightPixel.getColor();
-                if (leftPixel.colorDistance(rightColor)
-                        > edgeDist) {
-                    leftPixel.setColor(Color.BLACK);
-                } else {
-                    leftPixel.setColor(Color.WHITE);
-                }
-                
-                topPixel = pixels[row+1][col];
-                botPixel = pixels[row][col];
-                botColor = botPixel.getColor();
-                if (topPixel.colorDistance(botColor)
-                        > edgeDist) {
-                    topPixel.setColor(Color.BLACK);
-                } else {
-                    topPixel.setColor(Color.WHITE);
-                }
-            }
-        }
-    }
-
-    
+  
     
     public void edgeDetection(int edgeDist) {
+        edgeDist = 100;
         Pixel leftPixel = null;
         Pixel rightPixel = null;
         Pixel topPixel = null;
@@ -302,7 +263,8 @@ public class Picture extends SimplePicture {
         }
     }
     
-    public void edgeDetectionSelf(int edgeDist) {
+    public void edgeDetection2(int edgeDist) {
+        edgeDist = 60;
         Pixel leftPixel = null;
         Pixel midPixel = null;
         Pixel rightPixel = null;
@@ -518,10 +480,10 @@ public class Picture extends SimplePicture {
      * method 
      */
     public static void main(String[] args) {
-        Picture beach = new Picture("seagull.jpg");
-        beach.explore();
-        beach.mirrorVertical();
-        beach.explore();
+//        Picture beach = new Picture("seagull.jpg");
+//        beach.explore();
+//        beach.mirrorVertical();
+//        beach.explore();
     }
 
 } // this } is the end of class Picture, put all new methods before this

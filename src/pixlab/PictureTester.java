@@ -153,12 +153,12 @@ public class PictureTester
   {
     Picture swan = new Picture("swan.jpg");
     swan.explore();
-    swan.edgeDetectionSelf(60);
+    swan.edgeDetection2(60);
     swan.explore();
     
     Picture koal = new Picture("koala.jpg");
     koal.explore();
-    koal.edgeDetectionSelf(60);
+    koal.edgeDetection2(60);
     koal.explore();
     
     Picture koala = new Picture("koala.jpg");
